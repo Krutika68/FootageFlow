@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Story Tool</title>
+</head>
+<body>
+    <h1>AI Video Editing & Storytelling Tool</h1>
+    
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="video" required>
+        <button type="submit">Upload Video</button>
+    </form>
+
+    {% if transcript %}
+    <h3>Transcription:</h3>
+    <p>{{ transcript }}</p>
+    {% endif %}
+    
+    <form action="/search" method="post">
+        <input type="text" name="query" placeholder="Search moments" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+    <h3>Search Results:</h3>
+    <ul>
+        {% for result in results %}
+        <li>{{ result['_source']['transcription'] }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <form action="/create_story" method="post">
+        <input type="text" name="prompt" placeholder="Create a story..." required>
+        <button type="submit">Create Story</button>
+    </form>
+
+    {% if story %}
+    <h3>Generated Story:</h3>
+    <p>{{ story }}</p>
+    {% endif %}
+</body>
+</html>
